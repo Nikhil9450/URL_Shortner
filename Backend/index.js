@@ -12,6 +12,7 @@ app.use("/user",userRoute);
 app.get("/:shortId",async(req,res)=>{
 
     const shortId= req.params.shortId;
+    console.log("shortId---------->",shortId)
     const entry = await URL.findOneAndUpdate(
     {
         shortId
@@ -22,7 +23,14 @@ app.get("/:shortId",async(req,res)=>{
                 timestamp : Date.now()
             }
         }
-    })
+    },
+    {
+      returnOriginal: false // <-- for Mongoose (or returnDocument: "after" for native Mongo)
+    }
+);
+  if (!entry) {
+    return res.status(404).json({ error: "Short URL not found" });
+  }
     console.log("entry--------->",entry)
     res.redirect(entry.redirectURL);
 })
