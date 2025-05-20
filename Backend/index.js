@@ -1,14 +1,22 @@
 const express= require("express");
 const urlRoute = require("./routes/url");
 const userRoute = require("./routes/user")
+const cookieParser = require('cookie-parser');
+const {restrictToLoggedinUserOnly}=require('./middlewares/auth')
+
 const {connectToMongoDB} = require ("./connect");
 const URL = require("./models/url")
 const app = express()
 const PORT = 3000;
 connectToMongoDB('mongodb://localhost:27017/short-url').then(()=>console.log('mongodb connected'))
 app.use(express.json());
-app.use("/url",urlRoute);
+app.use(cookieParser());
+
+
+app.use("/url",restrictToLoggedinUserOnly,urlRoute);
 app.use("/user",userRoute);
+
+
 app.get("/:shortId",async(req,res)=>{
 
     const shortId= req.params.shortId;
