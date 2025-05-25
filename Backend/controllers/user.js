@@ -22,8 +22,13 @@ if(!user){
     return res.send("User is not registered.")
 }else{
     const sessionId =uuidv4();
+    console.log("session id",sessionId);
     setUser(sessionId,user)
-    res.cookie("uid",sessionId);
+    res.cookie("uid",sessionId, {
+            httpOnly: false,
+            sameSite: 'Lax',
+            secure: false
+        });
     return res.send("logged in successfully");
 }
 }

@@ -14,6 +14,9 @@ const SignIn = () => {
       const response= await axios.post("http://localhost:3000/user/login",{
         email,
         password
+      }, 
+      {
+        withCredentials: true
       });
       console.log('request submitted',response);
 
