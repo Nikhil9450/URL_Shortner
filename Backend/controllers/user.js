@@ -19,7 +19,7 @@ const {email,password}=req.body;
 console.log("login body --------->",req.body)
 const user =await User.findOne({email,password});
 if(!user){
-    return res.send("User is not registered.")
+    return res.send({message:'Invalid User', loggedIn:false})
 }else{
     const sessionId =uuidv4();
     console.log("session id",sessionId);
@@ -29,7 +29,7 @@ if(!user){
             sameSite: 'Lax',
             secure: false
         });
-    return res.send("logged in successfully");
+    return res.send({message:'Logged In Successfully', loggedIn:true});
 }
 }
 

@@ -23,9 +23,7 @@ app.use("/url",restrictToLoggedinUserOnly,urlRoute);
 app.use("/user",userRoute);
 app.use("/",checkAuth,staticRoute)
 
-app.get("/check-auth", checkAuth, (req, res) => {
-  res.json({ authenticated: !!req.user });
-});
+
 app.get("/:shortId",async(req,res)=>{
 
     const shortId= req.params.shortId;

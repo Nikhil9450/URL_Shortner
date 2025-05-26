@@ -10,7 +10,9 @@ const allurls = await URL.find({createdBy:req.user._id})
 return res.send({urls:allurls});
 })
 
-
+router.get("/check-auth", (req, res) => {
+  res.json({ authenticated: !!req.user });
+});
 
 
 module.exports = router;
