@@ -31,11 +31,11 @@ const Home = () => {
       <input type="text" ref={urlRef} />
       <button onClick={generateShortUrl}>Generate Short URL</button>
       <div>
-        {apidata ? apidata.urls.map((element, index) => (
+        {apidata?.urls?.map((element, index) => (
           <p key={index}>
             {element.redirectURL} | {element.shortId} | {element.visitHistory.length} <span><button onClick={() => visitUrl(element.shortId)} >visit</button></span>
           </p>
-        )) : ''}
+        )) }
       </div>
     </div>
   )
